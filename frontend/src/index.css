@@ -80,3 +80,19 @@ body {
 .btn-cartoon {
   @apply relative overflow-hidden transition-all duration-150 active:translate-x-0.5 active:translate-y-0.5 active:shadow-cartoon-hover;
 }
+
+@media print {
+  body {
+    background: white !important;
+    background-image: none !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+  .print\:border-none {
+    border: none !important;
+  }
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+}

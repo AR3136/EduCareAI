@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, CheckCircle, AlertTriangle, Info, Star, ShieldAlert, Award, TrendingUp, BarChart2, User, Edit2, Save, Calendar, Calculator, Percent, Clock, Sparkles, BookOpen, Brain } from 'lucide-react';
+import { Activity, CheckCircle, AlertTriangle, Info, Star, ShieldAlert, Award, TrendingUp, BarChart2, User, Edit2, Save, Calendar, Calculator, Percent, Clock, Sparkles, BookOpen, Brain, Printer, Download } from 'lucide-react';
 import { API_BASE } from '../config';
-import { CartoonCard } from './Reusables';
+import { CartoonCard, CartoonButton } from './Reusables';
 import { eventBus } from '../shared/eventBus';
 
 export default function ParentActivityReport({ studentId = 'student_123' }) {
@@ -121,13 +121,28 @@ export default function ParentActivityReport({ studentId = 'student_123' }) {
     <div className="space-y-6">
       
       {/* Header bar */}
-      <div className="flex items-center justify-between border-b-2 border-slate-100 pb-2">
+      <div className="flex flex-col md:flex-row items-center justify-between border-b-2 border-slate-100 pb-4 gap-4">
         <h3 className="font-black text-2xl text-slate-800 flex items-center gap-2">
           <TrendingUp className="w-6 h-6 text-indigo-500 animate-pulse" /> Child's STEM Activity Insights
         </h3>
-        <span className="text-[10px] text-slate-400 font-extrabold uppercase bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200">
-          Sync status: Active 🔄
-        </span>
+        <div className="flex flex-wrap items-center gap-2 print:hidden">
+          <CartoonButton onClick={() => window.print()} color="white" className="flex items-center gap-2 text-sm !px-4">
+            <Printer className="w-4 h-4" /> Print Report
+          </CartoonButton>
+          <CartoonButton 
+            onClick={() => {
+              alert("To save as PDF, select 'Save as PDF' in the destination dropdown of the print window that opens next.");
+              window.print();
+            }} 
+            color="white" 
+            className="flex items-center gap-2 text-sm !px-4"
+          >
+            <Download className="w-4 h-4" /> Download PDF
+          </CartoonButton>
+          <span className="text-[10px] text-slate-400 font-extrabold uppercase bg-slate-100 px-2.5 py-2.5 rounded-2xl border border-slate-200">
+            Sync status: Active 🔄
+          </span>
+        </div>
       </div>
 
       {/* Student Profile Section */}
@@ -139,7 +154,7 @@ export default function ParentActivityReport({ studentId = 'student_123' }) {
           {!isEditingProfile ? (
             <button 
               onClick={() => setIsEditingProfile(true)}
-              className="flex items-center gap-1 text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-200 hover:bg-indigo-100"
+              className="flex items-center gap-1 text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-200 hover:bg-indigo-100 print:hidden"
             >
               <Edit2 className="w-3 h-3" /> Edit Profile
             </button>
